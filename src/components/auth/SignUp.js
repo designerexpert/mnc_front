@@ -2,8 +2,8 @@ import '../styles/index.css';
 import React, { Component } from 'react';
 import axios from 'axios';
 import Button from '../Button';
-import backend from '../../config';
-const url = backend || 'http://localhost:5000';
+import config from '../../config';
+const url = config.backend || 'http://localhost:5000';
 
 class SignUp extends Component {
     constructor() {
