@@ -1,0 +1,10 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  background-image: linear-gradient(rgb(202, 239, 250), white 30%);
+  min-width: 450px;
+}
+
