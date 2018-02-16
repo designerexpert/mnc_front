@@ -2,7 +2,8 @@ import '../styles/index.css';
 import React, { Component } from 'react';
 import axios from 'axios';
 import Button from '../Button';
-const url = 'http://localhost:5000';
+import backend from '../../config';
+const url = backend || 'http://localhost:5000';
 
 class SignIn extends Component {
     constructor() {
