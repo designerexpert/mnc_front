@@ -16,7 +16,6 @@ class Button extends Component {
     handleClicked = () => {
         this.setState({ clicked: true });
         setTimeout(() => { this.setState({ clicked: false }); this.state.onClick(); }, 150);
-
     }
 
     render() {

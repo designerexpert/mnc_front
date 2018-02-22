@@ -1,24 +1,29 @@
-import '../styles/index.css';
+/*eslint no-useless-escape: "off"*/
 import React, { Component } from 'react';
-import axios from 'axios';
+// ------------- Begin Redux Imports Here
+import { connect } from 'react-redux';
+import { logInUser } from '../../actions';
+// ------------- Begin External Files Imports Here
+import '../styles/index.css';
+// ------------- Begin Component Imports Here
 import Button from '../Button';
-import config from '../../config';
-const url = config.backend || 'http://localhost:5000';
+import Nav from "../nav/AuthNav";
+import { withRouter } from 'react-router-dom';
 
 class SignIn extends Component {
     constructor() {
         super();
         this.state = {
             success: true,
+            validEmail: true
         }
     }
     componentDidMount() {
-
+        this.setState({ logInUser: this.props.logInUser })
     }
 
     handleText = (e) => {
         this.setState({ [e.target.id]: e.target.value });
-        //console.log(e.target.id, this.state[e.target.id])
     }
 
     handleEnter = (e) => {
@@ -27,50 +32,79 @@ class SignIn extends Component {
         }
     }
 
-    handleFocus = (e) => {
-        let id = e.target.id;
-        this.setState({ activeField: id });
+    handleSwitch = () => {
+        this.props.history.push('/signup')
+    }
+
+    checkEmail = () => {
+        let regVar = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (regVar.test(this.state.email)) {
+            this.setState({ validEmail: true });
+            return true;
+        } else {
+            this.setState({ validEmail: false });
+            return false;
+        }
     }
 
     handleSubmit = () => {
-        axios.post(`${url}/login`,
-            {
-                email: this.state.email,
-                password: this.state.password
-            }
-        )
-            .then(res => {
-                if (!res.data.token) {
+        let user = {
+            email: this.state.email,
+            password: this.state.password
+        }
+        this.state.logInUser(user)
+            .then((response) => {
+                if (this.props.state.users.authenticated.token) { // If there is a token then it is logged in.
+                    this.props.history.push('/collections');
+                } else {
                     this.setState({ success: false });
-                    setTimeout(() => {
-                        this.setState({ success: true })
-                    }, 3000);
-                    return;
                 }
-                this.setState({ jwt: res.data.token });
             })
-            .catch(err => {
-                console.log('There was an error registering', err.message)
+            .catch(() => {
+                this.setState({ validEmail: false })
             })
     }
 
     render() {
         return (
-            <div className='vertContainer auth'>
-                <div className='inputHeader'>Email</div>
-                <input id='email' type='email' className={this.state.activeField === 'email' ? 'authInput' : 'authInput--active'} onChange={this.handleText} onFocus={this.handleFocus} />
-                <div className='inputHeader'>Password</div>
-                <input id='password' type='password' className={this.state.activeField === 'password' ? 'authInput' : 'authInput--active'} onChange={this.handleText} onFocus={this.handleFocus} />
-                <div className={this.state.sucess ? 'inputHeader' : 'inputHeader inputHeader--fail'}>
-                    {this.state.success ? '' : 'Sign In Error: Please try again.'}
-                </div>
-                <div className='formDivider'></div>
-                <div className='buttonsRow'>
-                    <Button title={'Sign In'} onClick={this.handleSubmit} />
+            <div className='pageWrap'>
+                <Nav />
+                <div className='routeContainer'>
+                    <div className='authWrap'>
+                        <img className='mainLogo' src='./img/MedNoteCompanion.svg' alt='MedNoteCompanion Logo' />
+                        <div className='vertContainer'>
+                            <div className='authHeader'>{'Please Sign In'}</div>
+                            <div className='vertContainer auth'>
+                                <div className='inputHeader'>Email</div>
+                                <input id='email' type='email' className={this.state.activeField === 'email' ? 'authInput' : 'authInput--active'} onChange={this.handleText} onFocus={this.handleFocus} />
+                                <div className='inputHeader'>Password</div>
+                                <input id='password' type='password' className={this.state.activeField === 'password' ? 'authInput' : 'authInput--active'} onChange={this.handleText} onFocus={this.handleFocus} onKeyDown={this.handleEnter} />
+                                <div className={this.state.sucess ? 'inputHeader' : 'inputHeader inputHeader--fail'}>
+                                    {this.state.success ? '' : 'Sign In Error: Please try again.'}
+                                </div>
+                                <div className='formDivider'></div>
+                                <div className='buttonsRow'>
+                                    <Button title={'Sign In'} onClick={this.handleSubmit} />
+                                </div>
+                            </div>
+                            <div className='vertContainer'>
+                                <div className='authNotification'>Don't have an account?</div>
+                                <div className='buttonsRow'>
+                                    <Button onClick={this.handleSwitch} title={'Click Here'} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
     }
 }
 
-export default SignIn;
+const mapStateToProps = (state) => {
+    return {
+        state: state,
+    }
+}
+
+export default connect(mapStateToProps, { logInUser })(withRouter(SignIn));
