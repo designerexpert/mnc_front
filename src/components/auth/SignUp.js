@@ -126,54 +126,54 @@ class SignUp extends Component {
             <div className='pageWrap'>
                 <Nav />
                 <div className='routeContainer'>
-                <div className='authWrap'>
-                    <img className='mainLogo' src='./img/MedNoteCompanion.svg' alt='MedNoteCompanion Logo' />
-                    <div className='vertContainer'>
-                        <div className='authHeader'>{'Please Sign Up'}</div>
-                        <div className='vertContainer auth'>
-                            <div className={this.handleEmailColor()}>
-                                {this.handleEmailText()}
-                            </div>
-                            <input
-                                id='email'
-                                type='email'
-                                className={this.state.activeField === 'email' ? 'authInput' : 'authInput--active'}
-                                onChange={this.handleText}
-                                onFocus={this.handleFocus} />
-                            <div className={this.state.pwMatch ? 'inputHeader' : 'inputHeader inputHeader--fail'}>
-                                {this.state.pwMatch ? 'Password' : '* The passwords do not match'}
-                            </div>
-                            <input
-                                id='password'
-                                type='password'
-                                className={this.state.activeField === 'password' ? 'authInput' : 'authInput--active'}
-                                onChange={this.handleText}
-                                onFocus={this.handleFocus} />
-                            <div className={this.state.pwMatch ? 'inputHeader' : 'inputHeader inputHeader--fail'}>
-                                {this.state.pwMatch ? 'Verify Password' : '* The passwords do not match'}
-                            </div>
-                            <input
-                                id='password2'
-                                type='password'
-                                className={this.state.activeField === 'password2' ? 'authInput' : 'authInput--active'}
-                                onChange={this.handleText}
-                                onKeyDown={this.handleText}
-                                onFocus={this.handleFocus} />
-                            <div className='formDivider'></div>
-                            <div className='buttonsRow'>
-                                <Button title={'Sign Up'} onClick={this.handleSubmit} />
-                            </div>
-                        </div>
-
+                    <div className='authWrap'>
+                        <img className='mainLogo' src='./img/MedNoteCompanion.svg' alt='MedNoteCompanion Logo' />
                         <div className='vertContainer'>
-                            <div className='authNotification'>Already have an account?</div>
-                            <div className='buttonsRow'>
-                                <Button onClick={this.handleSwitch} title={'Click Here'} />
+                            <div className='welcomeHeader'>{'Please Sign Up'}</div>
+                            <div className='vertContainer auth'>
+                                <div className={this.handleEmailColor()}>
+                                    {this.handleEmailText()}
+                                </div>
+                                <input
+                                    id='email'
+                                    type='email'
+                                    className={this.state.activeField === 'email' ? 'authInput' : 'authInput--active'}
+                                    onChange={this.handleText}
+                                    onFocus={this.handleFocus} />
+                                <div className={this.state.pwMatch ? 'inputHeader' : 'inputHeader inputHeader--fail'}>
+                                    {this.state.pwMatch ? 'Password' : '* The passwords do not match'}
+                                </div>
+                                <input
+                                    id='password'
+                                    type='password'
+                                    className={this.state.activeField === 'password' ? 'authInput' : 'authInput--active'}
+                                    onChange={this.handleText}
+                                    onFocus={this.handleFocus} />
+                                <div className={this.state.pwMatch ? 'inputHeader' : 'inputHeader inputHeader--fail'}>
+                                    {this.state.pwMatch ? 'Verify Password' : '* The passwords do not match'}
+                                </div>
+                                <input
+                                    id='password2'
+                                    type='password'
+                                    className={this.state.activeField === 'password2' ? 'authInput' : 'authInput--active'}
+                                    onChange={this.handleText}
+                                    onKeyDown={this.handleText}
+                                    onFocus={this.handleFocus} />
+                                <div className='formDivider'></div>
+                                <div className='buttonsRow'>
+                                    <Button title={'Sign Up'} onClick={this.handleSubmit} />
+                                </div>
+                            </div>
+
+                            <div className='vertContainer'>
+                                <div className='authNotification'>Already have an account?</div>
+                                <div className='buttonsRow'>
+                                    <Button onClick={this.handleSwitch} title={'Click Here'} />
+                                </div>
                             </div>
                         </div>
                     </div>
-                    </div>
-                </div>    
+                </div>
             </div>
         );
     }

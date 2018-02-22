@@ -73,7 +73,7 @@ class SignIn extends Component {
                     <div className='authWrap'>
                         <img className='mainLogo' src='./img/MedNoteCompanion.svg' alt='MedNoteCompanion Logo' />
                         <div className='vertContainer'>
-                            <div className='authHeader'>{'Please Sign In'}</div>
+                            <div className='welcomeHeader'>{'Please Sign In'}</div>
                             <div className='vertContainer auth'>
                                 <div className='inputHeader'>Email</div>
                                 <input id='email' type='email' className={this.state.activeField === 'email' ? 'authInput' : 'authInput--active'} onChange={this.handleText} onFocus={this.handleFocus} />

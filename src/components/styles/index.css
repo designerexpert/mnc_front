@@ -1,7 +1,8 @@
-body {
+body{
   margin: 0;
   padding: 0;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  min-width: 300px;
 }
 * {
   box-sizing: border-box;
@@ -85,18 +86,21 @@ body {
   align-items: space-around;
 }
 
+.buttonsStack {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  margin: 0, auto;
+  justify-content: center;
+  align-items: space-around;
+  padding: 1em;
+}
+
 .formDivider {
   margin-top: 1em;
 }
 
-.nav {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  background-image: linear-gradient(#0072C6, rgb(77, 149, 201));
-  margin: 0 auto;
-  padding: 0.4em;
-  justify-content: space-between;
-  color: white;
+.welcomeHeader {
+  font-size: 1.5em;
+  font-weight: 900;
 }
