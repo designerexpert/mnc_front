@@ -16,30 +16,28 @@ class Collections extends Component {
     }
 
     componentWillMount() {
-        // this.props.verifyUser();
-        console.log('this.props.users.authenticated', this.props.state.users.authenticated )
-        console.log('this.props', this.props)
         this.setState({ authenticated: this.props.state.users.authenticated })
     }
 
     render() {
-        console.log('Authenticated Object', this.state.authenticated)
-        return (this.state.authenticated === undefined ? <Redirect to={'/'} /> :
-            <div className='pageWrap'>
-                <div className='collectionsContainer'>
-                    <div className='collectionsMenu'>
-                        <div className='welcomeHeader'>
-                            {'Document Collections Menu'}
-                        </div>
-                        <div>
-                            {'Please select from the options bellow'}
-                        </div>
-                        <div className='buttonsStack'>
-                            <Button title={'New SOAP Note'} onClick={() => this.props.history.push('/note')} />
+        return (
+            this.state.authenticated === undefined ?
+                <Redirect to={'/'} /> :
+                <div className='pageWrap'>
+                    <div className='collectionsContainer'>
+                        <div className='collectionsMenu'>
+                            <div className='welcomeHeader'>
+                                {'Document Collections Menu'}
+                            </div>
+                            <div>
+                                {'Please select from the options bellow'}
+                            </div>
+                            <div className='buttonsStack'>
+                                <Button title={'New SOAP Note'} onClick={() => this.props.history.push('/note')} />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         );
     }
 }
@@ -50,4 +48,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { })(withRouter(Collections));
+export default connect(mapStateToProps, {})(withRouter(Collections));

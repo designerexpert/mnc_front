@@ -3,6 +3,7 @@ import './nav.css';
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { localUserClear } from '../../actions';
 
 class Nav extends Component {
     constructor() {
@@ -22,7 +23,7 @@ class Nav extends Component {
                         <NavLink to='/collections'><div className='navLogo'></div></NavLink>
                     </div>
                     <div className='rightNav'>
-                        <NavLink className='navLink' to='/'>Sign Into Another Account</NavLink>
+                        <NavLink className='navLink' to='/' onClick={() => this.props.localUserClear()}>Sign Into Another Account</NavLink>
                     </div>
                 </div>
                 <div className='navDivider'>
@@ -38,4 +39,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps, { localUserClear })(Nav);

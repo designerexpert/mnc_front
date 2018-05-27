@@ -4,6 +4,7 @@ import {
     PUT_USER,
     DEL_USER,
     LOGIN_USER,
+    CLEAR_USER,
 } from '../actions';
 
 // let userTemplate = {
@@ -48,6 +49,9 @@ export default (user = retrieveLocalStorage(), action) => {
         case DEL_USER:
             clearLocalStorage();
             return action.payload.data;
+        case CLEAR_USER:
+            clearLocalStorage();
+            return { authenticated: undefined };
         default:
             return user;
     }

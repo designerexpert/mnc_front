@@ -7,7 +7,7 @@ import { logInUser } from '../../actions';
 import '../styles/index.css';
 // ------------- Begin Component Imports Here
 import Button from '../Button';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 class SignIn extends Component {
     constructor() {
@@ -17,6 +17,10 @@ class SignIn extends Component {
             validEmail: true
         }
     }
+    componentWillMount() {
+        this.setState({ authenticated: this.props.state.users.authenticated })
+    }
+
     componentDidMount() {
         this.setState({ logInUser: this.props.logInUser })
     }
@@ -65,37 +69,44 @@ class SignIn extends Component {
     }
 
     render() {
-        return (
-            <div className='pageWrap'>
-                <div className='routeContainer'>
-                    <div className='authWrap'>
-                        <img className='mainLogo' src='./img/MedNoteCompanion.svg' alt='MedNoteCompanion Logo' />
-                        <div className='vertContainer'>
-                            <div className='welcomeHeader'>{'Please Sign In'}</div>
-                            <div className='vertContainer auth'>
-                                <div className='inputHeader'>Email</div>
-                                <input id='email' type='email' className={this.state.activeField === 'email' ? 'authInput' : 'authInput--active'} onChange={this.handleText} onFocus={this.handleFocus} />
-                                <div className='inputHeader'>Password</div>
-                                <input id='password' type='password' className={this.state.activeField === 'password' ? 'authInput' : 'authInput--active'} onChange={this.handleText} onFocus={this.handleFocus} onKeyDown={this.handleEnter} />
-                                <div className={this.state.sucess ? 'inputHeader' : 'inputHeader inputHeader--fail'}>
-                                    {this.state.success ? '' : 'Sign In Error: Please try again.'}
-                                </div>
-                                <div className='formDivider'></div>
-                                <div className='buttonsRow'>
-                                    <Button title={'Sign In'} onClick={this.handleSubmit} />
-                                </div>
-                            </div>
+        return this.state.authenticated !== undefined ?
+            /* 
+            If there is a JWT Token Found for an
+            Authenticated User then the page will
+            redirect to /collections.
+            */    
+            <Redirect to='/collections' /> :
+            (
+                <div className='pageWrap'>
+                    <div className='routeContainer'>
+                        <div className='authWrap'>
+                            <img className='mainLogo' src='./img/MedNoteCompanion.svg' alt='MedNoteCompanion Logo' />
                             <div className='vertContainer'>
-                                <div className='authNotification'>Don't have an account?</div>
-                                <div className='buttonsRow'>
-                                    <Button onClick={this.handleSwitch} title={'Click Here'} />
+                                <div className='welcomeHeader'>{'Please Sign In'}</div>
+                                <div className='vertContainer auth'>
+                                    <div className='inputHeader'>Email</div>
+                                    <input id='email' type='email' className={this.state.activeField === 'email' ? 'authInput' : 'authInput--active'} onChange={this.handleText} onFocus={this.handleFocus} />
+                                    <div className='inputHeader'>Password</div>
+                                    <input id='password' type='password' className={this.state.activeField === 'password' ? 'authInput' : 'authInput--active'} onChange={this.handleText} onFocus={this.handleFocus} onKeyDown={this.handleEnter} />
+                                    <div className={this.state.sucess ? 'inputHeader' : 'inputHeader inputHeader--fail'}>
+                                        {this.state.success ? '' : 'Sign In Error: Please try again.'}
+                                    </div>
+                                    <div className='formDivider'></div>
+                                    <div className='buttonsRow'>
+                                        <Button title={'Sign In'} onClick={this.handleSubmit} />
+                                    </div>
+                                </div>
+                                <div className='vertContainer'>
+                                    <div className='authNotification'>Don't have an account?</div>
+                                    <div className='buttonsRow'>
+                                        <Button onClick={this.handleSwitch} title={'Click Here'} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
     }
 }
 

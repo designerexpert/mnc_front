@@ -7,6 +7,7 @@ export const ADD_USER = 'ADD_USER';
 export const LOGIN_USER = 'LOGIN_USER';
 export const PUT_USER = 'PUT_USER';
 export const DEL_USER = 'DEL_USER';
+export const CLEAR_USER = 'CLEAR_USER';
 
 const url = config.backend || 'http://localhost:5000';
 
@@ -59,3 +60,9 @@ export const delUser = (user) => {
         payload: response,
     };
 };
+
+export const localUserClear = () => {
+    return {
+        type: CLEAR_USER
+    }
+}
