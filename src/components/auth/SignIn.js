@@ -7,7 +7,6 @@ import { logInUser } from '../../actions';
 import '../styles/index.css';
 // ------------- Begin Component Imports Here
 import Button from '../Button';
-import Nav from "../nav/AuthNav";
 import { withRouter } from 'react-router-dom';
 
 class SignIn extends Component {
@@ -68,7 +67,6 @@ class SignIn extends Component {
     render() {
         return (
             <div className='pageWrap'>
-                <Nav />
                 <div className='routeContainer'>
                     <div className='authWrap'>
                         <img className='mainLogo' src='./img/MedNoteCompanion.svg' alt='MedNoteCompanion Logo' />

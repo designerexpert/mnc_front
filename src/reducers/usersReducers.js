@@ -6,8 +6,28 @@ import {
     LOGIN_USER,
 } from '../actions';
 
+// let userTemplate = {
+//     id: 7,
+//     email: '',
+//     auth: false,
+//     createdAt: '',
+//     token: '',
+// }
 
-export default (user = {}, action) => {
+const updateLocalStorage = (user) => {
+    return localStorage.setItem('user', JSON.stringify(user));
+}
+
+const clearLocalStorage = () => {
+    return localStorage.setItem('user', JSON.stringify({}));
+}
+
+const retrieveLocalStorage = () => {
+    let initUser = JSON.parse(localStorage.getItem('user'));
+    return initUser === null ? {} : { authenticated: initUser };
+}
+
+export default (user = retrieveLocalStorage(), action) => {
     switch (action.type) {
         case LIST_USERS:
             return action.payload.data;
@@ -21,10 +41,12 @@ export default (user = {}, action) => {
             }
             break;
         case LOGIN_USER:
+            updateLocalStorage(action.payload.data);
             return { authenticated: action.payload.data };
         case PUT_USER:
             return action.payload.data;
         case DEL_USER:
+            clearLocalStorage();
             return action.payload.data;
         default:
             return user;

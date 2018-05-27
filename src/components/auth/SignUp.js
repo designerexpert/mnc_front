@@ -8,7 +8,6 @@ import '../styles/index.css';
 import './auth.css';
 // ------------- Begin Component Imports Here
 import Button from '../Button';
-import Nav from "../nav/AuthNav";
 import { withRouter } from 'react-router-dom';
 
 class SignUp extends Component {
@@ -124,7 +123,6 @@ class SignUp extends Component {
     render() {
         return (
             <div className='pageWrap'>
-                <Nav />
                 <div className='routeContainer'>
                     <div className='authWrap'>
                         <img className='mainLogo' src='./img/MedNoteCompanion.svg' alt='MedNoteCompanion Logo' />

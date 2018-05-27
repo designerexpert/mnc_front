@@ -2,10 +2,10 @@ import '../styles/index.css';
 import './collections.css';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Nav from "../nav/Nav";
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import Button from '../Button';
+// import { verifyUser } from '../../actions';
 
 class Collections extends Component {
     constructor() {
@@ -14,15 +14,18 @@ class Collections extends Component {
 
         }
     }
-    componentDidMount() {
+
+    componentWillMount() {
+        // this.props.verifyUser();
+        console.log('this.props.users.authenticated', this.props.state.users.authenticated )
+        console.log('this.props', this.props)
         this.setState({ authenticated: this.props.state.users.authenticated })
     }
 
     render() {
-        console.log(this.state.authenticated)
-        return (
+        console.log('Authenticated Object', this.state.authenticated)
+        return (this.state.authenticated === undefined ? <Redirect to={'/'} /> :
             <div className='pageWrap'>
-                <Nav />
                 <div className='collectionsContainer'>
                     <div className='collectionsMenu'>
                         <div className='welcomeHeader'>
@@ -47,4 +50,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(withRouter(Collections));
+export default connect(mapStateToProps, { })(withRouter(Collections));
