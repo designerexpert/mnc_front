@@ -87,8 +87,8 @@ class SignUp extends Component {
                             After Email Verification link is followed the user would then be navigated to the login page.
                             Right Now the user is just navigated to the log-in page where he/she will log-in to access the app.
                         */
-                        this.props.history.push('/');
                     }
+                    this.props.history.push('/');
                 })
                 .catch(() => {
                     this.setState({ registered: false })
